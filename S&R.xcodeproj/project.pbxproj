@@ -40,7 +40,6 @@
 		75A5B38A1AF97D990096AAE7 /* CameraView.m in Sources */ = {isa = PBXBuildFile; fileRef = 75A5B3891AF97D990096AAE7 /* CameraView.m */; };
 		75A9FF5A1B08D92F00FCBB53 /* UploadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75A9FF591B08D92F00FCBB53 /* UploadView.xib */; };
 		75A9FF5D1B08DF1700FCBB53 /* UploadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 75A9FF5C1B08DF1700FCBB53 /* UploadView.m */; };
-		75C80D6A1D66B23B00933050 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 75C80D691D66B23B00933050 /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -243,11 +242,12 @@
 		75A5B3121AF94D9D0096AAE7 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Justin Moser";
 				TargetAttributes = {
 					75A5B3191AF94D9D0096AAE7 = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = ZM432URA7M;
 					};
 				};
 			};
@@ -300,7 +300,6 @@
 				75A5B37D1AF94EA40096AAE7 /* SRManager.m in Sources */,
 				754EA6F81B01AA5F00EA6BAA /* UIImage+Category.m in Sources */,
 				75A5B38A1AF97D990096AAE7 /* CameraView.m in Sources */,
-				75C80D6A1D66B23B00933050 /* README.md in Sources */,
 				75A5B3231AF94D9D0096AAE7 /* AppDelegate.m in Sources */,
 				754EA6F51B01AA1C00EA6BAA /* DeviceHandler.m in Sources */,
 				75A5B3541AF94E6E0096AAE7 /* Elevation.m in Sources */,
@@ -348,8 +347,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -394,8 +395,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -426,6 +429,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = ZM432URA7M;
 				ENABLE_STRICT_OBJC_MSGSEND = NO;
 				GCC_FAST_MATH = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -442,6 +446,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = ZM432URA7M;
 				ENABLE_STRICT_OBJC_MSGSEND = NO;
 				GCC_FAST_MATH = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
