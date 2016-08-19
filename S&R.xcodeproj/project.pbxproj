@@ -40,6 +40,7 @@
 		75A5B38A1AF97D990096AAE7 /* CameraView.m in Sources */ = {isa = PBXBuildFile; fileRef = 75A5B3891AF97D990096AAE7 /* CameraView.m */; };
 		75A9FF5A1B08D92F00FCBB53 /* UploadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75A9FF591B08D92F00FCBB53 /* UploadView.xib */; };
 		75A9FF5D1B08DF1700FCBB53 /* UploadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 75A9FF5C1B08DF1700FCBB53 /* UploadView.m */; };
+		75C80D6A1D66B23B00933050 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 75C80D691D66B23B00933050 /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -107,6 +108,7 @@
 		75A9FF591B08D92F00FCBB53 /* UploadView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UploadView.xib; sourceTree = "<group>"; };
 		75A9FF5B1B08DF1700FCBB53 /* UploadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadView.h; sourceTree = "<group>"; };
 		75A9FF5C1B08DF1700FCBB53 /* UploadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadView.m; sourceTree = "<group>"; };
+		75C80D691D66B23B00933050 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +125,7 @@
 		75A5B3111AF94D9D0096AAE7 = {
 			isa = PBXGroup;
 			children = (
+				75C80D691D66B23B00933050 /* README.md */,
 				75A5B31C1AF94D9D0096AAE7 /* S&R */,
 				75A5B31B1AF94D9D0096AAE7 /* Products */,
 			);
@@ -297,6 +300,7 @@
 				75A5B37D1AF94EA40096AAE7 /* SRManager.m in Sources */,
 				754EA6F81B01AA5F00EA6BAA /* UIImage+Category.m in Sources */,
 				75A5B38A1AF97D990096AAE7 /* CameraView.m in Sources */,
+				75C80D6A1D66B23B00933050 /* README.md in Sources */,
 				75A5B3231AF94D9D0096AAE7 /* AppDelegate.m in Sources */,
 				754EA6F51B01AA1C00EA6BAA /* DeviceHandler.m in Sources */,
 				75A5B3541AF94E6E0096AAE7 /* Elevation.m in Sources */,
