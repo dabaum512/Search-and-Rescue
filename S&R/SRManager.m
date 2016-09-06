@@ -11,24 +11,22 @@
 #import "SpatialManager.h"
 #import "POSTer.h"
 #import "Elevation.h"
-#import "NSObject+Properties.h"
 
 #include <sys/types.h>
 #include <sys/sysctl.h>
 
-#import <UIKit/UIApplication.h>
 #import "DataHandler.h"
 #import <UIKit/UIImage.h>
 
 typedef struct {
     double x,y,z;
-}Vector3;
+} Vector3;
 
 typedef struct {
     double m00,m01,m02;
     double m10,m11,m12;
     double m20,m21,m22;
-}Matrix3x3;
+} Matrix3x3;
 
 static double iphone6focal[2] = {1125.26,1124.44};
 static double iphone5focal[2] = {1385.39,1387.03};
@@ -45,8 +43,6 @@ static double fy = 0;
 @property (nonatomic, strong) AVCaptureVideoPreviewLayer *preview;
 @property (nonatomic, strong) SpatialManager *spatialManager;
 
-
-@property (nonatomic) UIBackgroundTaskIdentifier backgroundRecordingID;
 @property (nonatomic, strong) Analyzer *analyzer;
 
 @property (nonatomic, strong) dispatch_queue_t dataQueue;
@@ -59,16 +55,6 @@ static double fy = 0;
 @end
 
 @implementation SRManager
-
-- (NSString *)platform{
-    size_t size;
-    sysctlbyname("hw.machine", NULL, &size, NULL, 0);
-    char *machine = malloc(size);
-    sysctlbyname("hw.machine", machine, &size, NULL, 0);
-    NSString *platform = [NSString stringWithUTF8String:machine];
-    free(machine);
-    return platform;
-}
 
 -(instancetype)init {
     if (self = [super init]) {
@@ -98,12 +84,22 @@ static double fy = 0;
     return self;
 }
 
+- (NSString *)platform{
+    size_t size;
+    sysctlbyname("hw.machine", NULL, &size, NULL, 0);
+    char *machine = malloc(size);
+    sysctlbyname("hw.machine", machine, &size, NULL, 0);
+    NSString *platform = [NSString stringWithUTF8String:machine];
+    free(machine);
+    return platform;
+}
+
+
 -(void)setupFocus {
-    if ([[self platform] isEqualToString:@"iPhone5,1"]) {
+    if ([[self platform]isEqualToString:@"iPhone5,1"]) {
         fx = iphone5focal[0];
         fy = iphone5focal[1];
     } else {
-        NSLog(@"%@",[self platform]);
         fx = iphone6focal[0];
         fy = iphone6focal[1];
     }
@@ -176,7 +172,6 @@ static double fy = 0;
 -(void)setupVideoCamera {
     _session = [AVCaptureSession new];
     _session.sessionPreset = AVCaptureSessionPresetInputPriority;
-    _backgroundRecordingID = UIBackgroundTaskInvalid;
     
     AVCaptureDevice *device = [SRManager deviceWithMediaType:AVMediaTypeVideo preferringPosition:AVCaptureDevicePositionBack];
     if (!device) {
@@ -185,7 +180,7 @@ static double fy = 0;
     NSError *error = nil;
     if ([device lockForConfiguration:&error]) {
         [device setFocusModeLockedWithLensPosition:1.0 completionHandler:nil];
-        [device unlockForConfiguration]; // apparently I can put this outside of the block
+        [device unlockForConfiguration];
     }
     _input = [AVCaptureDeviceInput deviceInputWithDevice:device error:&error];
     if ([_session canAddInput:_input]) {
@@ -380,11 +375,11 @@ static double fy = 0;
     size_t cols = CVPixelBufferGetWidth(imageBuffer);
     size_t rows = CVPixelBufferGetHeight(imageBuffer);
     
-    CFTimeInterval time = CACurrentMediaTime();
+//    CFTimeInterval time = CACurrentMediaTime();
     
     CGPoint point = brightSpotFromLuma(baseAddress, rows, cols);
     
-    printf("%.5f\n",CACurrentMediaTime() - time);
+//    printf("%.5f\n",CACurrentMediaTime() - time);
     
     CVPixelBufferUnlockBaseAddress(imageBuffer, kCVPixelBufferLock_ReadOnly);
     
@@ -591,15 +586,6 @@ Vector3 multiply(Matrix3x3 m, double x, double y, double z) {
     return _poster;
 }
 
-+(AVCaptureDevice *)standardDeviceWithMediaType:(NSString *)mediaType preferringPosition:(AVCaptureDevicePosition)position {
-    for (AVCaptureDevice *device in [AVCaptureDevice devicesWithMediaType:mediaType]) {
-        if (device.position == position) {
-            return device;
-        }
-    }
-    return nil;
-}
-
 + (AVCaptureDevice *)deviceWithMediaType:(NSString *)mediaType preferringPosition:(AVCaptureDevicePosition)position {
     for (AVCaptureDevice *device in [AVCaptureDevice devicesWithMediaType:mediaType]) {
         if (device.position == position) {
@@ -638,14 +624,6 @@ Vector3 multiply(Matrix3x3 m, double x, double y, double z) {
         self.poster.serverAddress = serverAddress;
     });
 }
-
-//-(void)pause {
-//    [self setShouldBlur:YES];
-//}
-//
-//-(void)unpause {
-//    [self.session startRunning];
-//}
 
 #pragma mark - Image Block
 

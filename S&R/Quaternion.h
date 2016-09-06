@@ -15,9 +15,6 @@
 }
 
 @property (readwrite, assign) double w;
-//@property (readwrite, assign) double x;
-//@property (readwrite, assign) double y;
-//@property (readwrite, assign) double z;
 
 +(Quaternion *)xQuaternion;
 +(Quaternion *)yQuaternion;

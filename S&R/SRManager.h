@@ -28,9 +28,6 @@
 @property (nonatomic, copy) void(^callback)(CGPoint);
 @property (nonatomic, copy) void(^gpsBlock)(PostData);
 
-//-(void)pause;
-//-(void)unpause;
-
 -(void)startWithCallback:(void(^)(CGPoint))callback gpsBlock:(void(^)(PostData))gpsBlock;
 
 -(void)pauseWithBlock:(void(^)(UIImage *image))block;

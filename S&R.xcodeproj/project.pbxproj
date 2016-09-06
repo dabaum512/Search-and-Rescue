@@ -19,7 +19,6 @@
 		75A5B3531AF94E6E0096AAE7 /* DataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75A5B34D1AF94E6E0096AAE7 /* DataViewController.m */; };
 		75A5B3541AF94E6E0096AAE7 /* Elevation.m in Sources */ = {isa = PBXBuildFile; fileRef = 75A5B34F1AF94E6E0096AAE7 /* Elevation.m */; };
 		75A5B3581AF94E7B0096AAE7 /* JASidePanelController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75A5B3571AF94E7B0096AAE7 /* JASidePanelController.m */; };
-		75A5B3671AF94E820096AAE7 /* NSObject+Properties.m in Sources */ = {isa = PBXBuildFile; fileRef = 75A5B35A1AF94E820096AAE7 /* NSObject+Properties.m */; };
 		75A5B3681AF94E820096AAE7 /* Orientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 75A5B35C1AF94E820096AAE7 /* Orientation.m */; };
 		75A5B3691AF94E820096AAE7 /* POSTer.m in Sources */ = {isa = PBXBuildFile; fileRef = 75A5B35E1AF94E820096AAE7 /* POSTer.m */; };
 		75A5B36A1AF94E820096AAE7 /* Quaternion.m in Sources */ = {isa = PBXBuildFile; fileRef = 75A5B3601AF94E820096AAE7 /* Quaternion.m */; };
@@ -63,8 +62,6 @@
 		75A5B3551AF94E750096AAE7 /* Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Header.h; sourceTree = "<group>"; };
 		75A5B3561AF94E7B0096AAE7 /* JASidePanelController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JASidePanelController.h; sourceTree = "<group>"; };
 		75A5B3571AF94E7B0096AAE7 /* JASidePanelController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JASidePanelController.m; sourceTree = "<group>"; };
-		75A5B3591AF94E820096AAE7 /* NSObject+Properties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Properties.h"; sourceTree = "<group>"; };
-		75A5B35A1AF94E820096AAE7 /* NSObject+Properties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Properties.m"; sourceTree = "<group>"; };
 		75A5B35B1AF94E820096AAE7 /* Orientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Orientation.h; sourceTree = "<group>"; };
 		75A5B35C1AF94E820096AAE7 /* Orientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Orientation.m; sourceTree = "<group>"; };
 		75A5B35D1AF94E820096AAE7 /* POSTer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POSTer.h; sourceTree = "<group>"; };
@@ -148,8 +145,6 @@
 				75A5B34F1AF94E6E0096AAE7 /* Elevation.m */,
 				75A5B3561AF94E7B0096AAE7 /* JASidePanelController.h */,
 				75A5B3571AF94E7B0096AAE7 /* JASidePanelController.m */,
-				75A5B3591AF94E820096AAE7 /* NSObject+Properties.h */,
-				75A5B35A1AF94E820096AAE7 /* NSObject+Properties.m */,
 				75A5B3731AF94EA40096AAE7 /* UIControl+Blocks.h */,
 				75A5B3741AF94EA40096AAE7 /* UIControl+Blocks.m */,
 				754EA6F61B01AA5F00EA6BAA /* UIImage+Blur.h */,
@@ -271,7 +266,6 @@
 				75A5B3701AF94E990096AAE7 /* SpatialManager.m in Sources */,
 				75A5B3531AF94E6E0096AAE7 /* DataViewController.m in Sources */,
 				75A5B3521AF94E6E0096AAE7 /* DataHandler.m in Sources */,
-				75A5B3671AF94E820096AAE7 /* NSObject+Properties.m in Sources */,
 				75A5B3261AF94D9D0096AAE7 /* ViewController.m in Sources */,
 				75A5B36A1AF94E820096AAE7 /* Quaternion.m in Sources */,
 				75A5B37D1AF94EA40096AAE7 /* SRManager.m in Sources */,
