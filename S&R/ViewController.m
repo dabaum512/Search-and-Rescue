@@ -13,11 +13,8 @@
 #import "SettingsViewController.h"
 #import "Setting.h"
 #import "LocatorLayer.h"
-#import <objc/message.h>
 #import "UIImage+ImageEffects.h"
 #import "CameraView.h"
-//#import "DeviceHandler.h"
-#import <Accelerate/Accelerate.h>
 #import "UIImage+Category.h"
 
 #import "UploadView.h"
@@ -273,10 +270,6 @@
     self.tapGesture.numberOfTouchesRequired = 1;
     [self.tapGesture setEnabled:YES];
     [self.view addGestureRecognizer:self.tapGesture];
-    
-//    self.pinchGesture = [[UIPinchGestureRecognizer alloc]initWithTarget:self action:@selector(handlePinchGesture:)];
-//    [self.pinchGesture setEnabled:NO];
-//    [self.view addGestureRecognizer:self.pinchGesture];
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
@@ -286,7 +279,6 @@
 -(void)handleTapGesture:(UITapGestureRecognizer *)tgr {
     if (!self.mapIsVisible) {
         self.manager.shouldSlowProcessing = YES;
-//        [self.locatorView setHidden:YES];
         _locatorLayer.opacity = 0.0;
         [UIView animateWithDuration:0.25 animations:^{
             self.labelConstraint.constant -= LABEL_TRANSLATION;
@@ -309,9 +301,6 @@
         [self.pinchGesture setEnabled:NO];
     }
 }
-
-
-//static double _time = 0;
 
 #pragma mark - Start Search
 
