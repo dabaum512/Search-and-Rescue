@@ -48,9 +48,13 @@
     }
 //    NSURL *myURL = [NSURL URLWithString:@"http://davidawehr.com/php_upload/json.php"];
     
+    [self.JSONDictionary removeAllObjects];
+    
     NSURL *myURL;
     if (self.serverAddress.length > 0) {
         myURL = [NSURL URLWithString:self.serverAddress];
+    } else {
+        return;
     }
     
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc]init];
@@ -61,75 +65,24 @@
     [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [request setHTTPBody:jsonData];
     
-    NSURLConnection *connection = [[NSURLConnection alloc]initWithRequest:request delegate:self];
-    [connection start];
-    [self.JSONDictionary removeAllObjects];
-}
-
-+(void)upload:(NSData *)data to:(NSString *)address progress:(void (^)(double))block {
-    
-    NSURL *url = [NSURL URLWithString:address];
-    
-    if (url) {
-        
-        
-        NSMutableURLRequest *request = [[NSMutableURLRequest alloc]init];
-        
-        [request setURL:url];
-        [request setHTTPMethod:@"POST"];
-        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-        [request setValue:[NSString stringWithFormat:@"%ld",(long)[data length]] forHTTPHeaderField:@"Content-Length"];
-        [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-        [request setHTTPBody:data];
-        
-        [[[NSURLConnection alloc]initWithRequest:request delegate:[self shared]]start];
-        
-//        [[[NSURLSession sharedSession]uploadTaskWithRequest:request fromData:data completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-//            if (block) {
-//                block(1.0);
-//            }
-//        }]resume];
-    }
-}
-
--(void)connection:(NSURLConnection *)connection didSendBodyData:(NSInteger)bytesWritten totalBytesWritten:(NSInteger)totalBytesWritten totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite {
-//    double progress = (double)totalBytesWritten / (double)totalBytesExpectedToWrite;
-    
+    [[[NSURLConnection alloc]initWithRequest:request delegate:self]start];
 }
 
 -(BOOL)connection:(NSURLConnection *)connection canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace {
-    if([[protectionSpace authenticationMethod] isEqualToString:NSURLAuthenticationMethodServerTrust])
-    {
+    if([[protectionSpace authenticationMethod] isEqualToString:NSURLAuthenticationMethodServerTrust]) {
         return YES;
     }
     return NO;
 }
 
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response{
-    NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
-    NSLog(@"%@",response);
-    int code = (int)[httpResponse statusCode];
-    NSLog(@"%i",code);
-}
-
 - (void) connection:(NSURLConnection *)connection didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
 {
-    if([challenge.protectionSpace.authenticationMethod isEqualToString:NSURLAuthenticationMethodServerTrust])
-    {
+    if([challenge.protectionSpace.authenticationMethod isEqualToString:NSURLAuthenticationMethodServerTrust]) {
         [challenge.sender useCredential:[NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust]
              forAuthenticationChallenge:challenge];
     }
     
     [challenge.sender continueWithoutCredentialForAuthenticationChallenge:challenge];
-}
-
--(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-    NSLog(@"%@",error);
-}
-
--(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
-    
-    NSLog(@"%@",[[NSString alloc]initWithData:data encoding:NSASCIIStringEncoding]);
 }
 
 -(NSMutableDictionary *)JSONDictionary {

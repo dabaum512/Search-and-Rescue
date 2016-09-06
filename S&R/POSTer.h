@@ -14,8 +14,6 @@
 
 @property (nonatomic, strong) NSString *serverAddress;
 
-+(void)upload:(NSData *)data to:(NSString *)address progress:(void(^)(double progress))block;
-
 -(void)handlePostData:(PostData)postData;
 
 @end
