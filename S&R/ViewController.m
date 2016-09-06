@@ -16,7 +16,7 @@
 #import <objc/message.h>
 #import "UIImage+ImageEffects.h"
 #import "CameraView.h"
-#import "DeviceHandler.h"
+//#import "DeviceHandler.h"
 #import <Accelerate/Accelerate.h>
 #import "UIImage+Category.h"
 
@@ -82,15 +82,8 @@
 
 #pragma mark - View Life Cycle
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [DeviceHandler allVideoFormats];
-    });
-    
-    
     
     self.view.backgroundColor = [UIColor clearColor];
     
@@ -98,6 +91,7 @@
         [self showLocationsServicesAlert];
         return;
     }
+    
     self.mapIsVisible = NO;
     
     [self registerForPanelChanges];
@@ -131,17 +125,6 @@
 }
 
 -(void)displayUploader {
-//    NSArray *views = [[NSBundle mainBundle]loadNibNamed:@"UploadView" owner:self options:nil];
-//    NSLog(@"%@",views);
-//    
-//    UIView *view = views.firstObject;
-//    if (view) {
-//        view.translatesAutoresizingMaskIntoConstraints = NO;
-//        [self.view addSubview:view];
-//        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[view]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(view)]];
-//        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[view]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(view)]];
-//    }
-    
     [self pause];
     
     UploadView *view = [UploadView new];
@@ -175,30 +158,12 @@
     previewLayer.frame = _cameraView.bounds;
     previewLayer.bounds = _cameraView.bounds;
     [_cameraView.layer addSublayer:previewLayer];
-    
-//    AVCaptureSession *captureSession = _manager.session;
-//    AVCaptureVideoPreviewLayer *previewLayer = [AVCaptureVideoPreviewLayer layerWithSession:captureSession];
-//    previewLayer.connection.videoOrientation = AVCaptureVideoOrientationLandscapeRight;
-//    [previewLayer setVideoGravity:AVLayerVideoGravityResizeAspect];
-//
-//    CameraView *cameraView = [CameraView cameraViewWithLayer:previewLayer];
-//    cameraView.frame = self.view.bounds;
-//    [self.view addSubview:cameraView];
-//    
-//    _cameraView = cameraView;
 }
 
 
 #pragma mark - Locator View Setup
 
 -(void)setupLocatorView {
-    
-//    _locatorView = [UIView new];
-//    _locatorView.frame = CGRectMake(0, 0, LOCATOR_DIAMETER, LOCATOR_DIAMETER);
-//    _locatorView.layer.anchorPoint = CGPointMake(0.5, 0.5);
-//    _locatorView.backgroundColor = [[UIColor greenColor]colorWithAlphaComponent:0.5];
-//    [self.view addSubview:_locatorView];
-    
     _locatorLayer = [LocatorLayer new];
     _locatorLayer.fill = [[UIColor greenColor]colorWithAlphaComponent:0.75];
     _locatorLayer.trim = [UIColor grayColor];
@@ -233,18 +198,19 @@
     
     NSDictionary *views = NSDictionaryOfVariableBindings(_yawLabel,_pitchLabel,_latitudeLabel,_longitudeLabel);
     
-    NSString *horizontalStr1 = [NSString stringWithFormat:@"H:|-(%f)-[_yawLabel(%f)]",LABEL_LEFT_PAD,LABEL_WIDTH];
-    [_floatingView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:horizontalStr1 options:0 metrics:nil views:views]];
-    NSString *horizontalStr2 = [NSString stringWithFormat:@"H:|-(%f)-[_pitchLabel(%f)]",LABEL_LEFT_PAD,LABEL_WIDTH];
-    [_floatingView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:horizontalStr2 options:0 metrics:nil views:views]];
-    NSString *horizontalStr3 = [NSString stringWithFormat:@"H:|-(%f)-[_latitudeLabel(%f)]",LABEL_LEFT_PAD,LABEL_WIDTH];
-    [_floatingView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:horizontalStr3 options:0 metrics:nil views:views]];
-    NSString *horizontalStr4 = [NSString stringWithFormat:@"H:|-(%f)-[_longitudeLabel(%f)]",LABEL_LEFT_PAD,LABEL_WIDTH];
-    [_floatingView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:horizontalStr4 options:0 metrics:nil views:views]];
-    NSString *verticalStr1 = [NSString stringWithFormat:@"V:[_yawLabel(%f)]-(%f)-[_pitchLabel(%f)]-(%f)-[_latitudeLabel(%f)]-(%f)-[_longitudeLabel(%f)]",LABEL_HEIGHT,LABEL_SEPARATION,LABEL_HEIGHT,LABEL_SEPARATION,LABEL_HEIGHT,LABEL_SEPARATION,LABEL_HEIGHT];
-    [_floatingView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:verticalStr1 options:0 metrics:nil views:views]];
+    [_floatingView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-(%f)-[_yawLabel(%f)]",LABEL_LEFT_PAD,LABEL_WIDTH] options:0 metrics:nil views:views]];
     
-    CGRect infoButtonFrame = CGRectMake(self.view.bounds.size.width - (INFO_SIZE + INFO_RIGHT_PAD), INFO_TOP_PAD, INFO_SIZE, INFO_SIZE);
+    [_floatingView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-(%f)-[_pitchLabel(%f)]",LABEL_LEFT_PAD,LABEL_WIDTH] options:0 metrics:nil views:views]];
+    
+    [_floatingView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-(%f)-[_latitudeLabel(%f)]",LABEL_LEFT_PAD,LABEL_WIDTH] options:0 metrics:nil views:views]];
+    
+    [_floatingView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-(%f)-[_longitudeLabel(%f)]",LABEL_LEFT_PAD,LABEL_WIDTH] options:0 metrics:nil views:views]];
+    
+    [_floatingView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"V:[_yawLabel(%f)]-(%f)-[_pitchLabel(%f)]-(%f)-[_latitudeLabel(%f)]-(%f)-[_longitudeLabel(%f)]",LABEL_HEIGHT,LABEL_SEPARATION,LABEL_HEIGHT,LABEL_SEPARATION,LABEL_HEIGHT,LABEL_SEPARATION,LABEL_HEIGHT] options:0 metrics:nil views:views]];
+    
+    CGRect infoButtonFrame = CGRectMake(self.view.bounds.size.width - (INFO_SIZE + INFO_RIGHT_PAD),
+                                        INFO_TOP_PAD, INFO_SIZE, INFO_SIZE);
+    
     _infoButton = [self createInfoButtonWithFrame:infoButtonFrame addToView:self.floatingView withParalax:YES];
 }
 
@@ -281,7 +247,7 @@
 }
 
 -(void)addParalaxToView:(UIView *)view {
-    UIInterpolatingMotionEffect *horizontalMotionEffect = [[UIInterpolatingMotionEffect alloc] initWithKeyPath:@"center.x" type:UIInterpolatingMotionEffectTypeTiltAlongHorizontalAxis];
+    UIInterpolatingMotionEffect *horizontalMotionEffect = [[UIInterpolatingMotionEffect alloc]initWithKeyPath:@"center.x" type:UIInterpolatingMotionEffectTypeTiltAlongHorizontalAxis];
     horizontalMotionEffect.minimumRelativeValue = @(-5);
     horizontalMotionEffect.maximumRelativeValue = @(5);
     [view addMotionEffect:horizontalMotionEffect];
@@ -290,11 +256,6 @@
 #pragma mark - Map View Setup
 
 -(void)setupMap {
-    
-    CLLocationCoordinate2D c;
-    c.latitude = 42.026838;     // Iowa State University coordinates
-    c.longitude = -93.646438;
-    
     self.zoom = 14.0;
     self.mapView = [MKMapView new];
     
@@ -318,38 +279,9 @@
 //    [self.view addGestureRecognizer:self.pinchGesture];
 }
 
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
-{
-    if (![gestureRecognizer isKindOfClass:[UITapGestureRecognizer class]] && ![otherGestureRecognizer isKindOfClass:[UITapGestureRecognizer class]])
-    {
-        return YES;
-    }
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
     return YES;
 }
-
-//-(void)handlePinchGesture:(UIPinchGestureRecognizer *)pinchGR {
-//    if (self.mapIsVisible && (pinchGR.state == UIGestureRecognizerStateChanged || pinchGR.state == UIGestureRecognizerStateBegan)) {
-//        float scale = pinchGR.scale;
-//        if (scale < 0.99) {
-//            scale = 0.99;
-//        } else if (scale > 1.01) {
-//            scale = 1.01;
-//        }
-//        self.zoom *= sqrt(scale);
-//        if (self.zoom > 20.0) {
-//            self.zoom = 20;
-//        } else if (self.zoom < 5) {
-//            self.zoom = 5.0;
-//        }
-//        [self.mapView animateToZoom:self.zoom];
-//        
-////        CLLocationCoordinate2D noLocation;
-////        MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(noLocation, 500, 500);
-////        MKCoordinateRegion adjustedRegion = [self.mapView regionThatFits:viewRegion];
-////        [self.mapView setRegion:adjustedRegion animated:YES];
-////        self.mapView.showsUserLocation = YES;
-//    }
-//}
 
 -(void)handleTapGesture:(UITapGestureRecognizer *)tgr {
     if (!self.mapIsVisible) {
@@ -378,97 +310,6 @@
     }
 }
 
-#pragma mark - Settings
-
--(void)setupSettings {
-    
-//    if (!self.settingsManager) {
-//        return;
-//    }
-//    
-//    NSMutableDictionary *dict = [NSMutableDictionary new];
-//    NSError *error = nil;
-//    
-//    Setting *sendDataSetting = [Setting settingWithName:@"sendData" description:@"Send Data To Server" defaultValue:@NO type:SettingTypeBOOL block:^(id value) {
-//        self.manager.sendData = [value boolValue];
-//    }];
-//    
-//    Setting *serverAddressSetting = [Setting settingWithName:@"serverAddress" description:@"Server Address" defaultValue:@"" type:SettingTypeString block:^(id value) {
-//        self.manager.serverAddress = value;
-//    }];
-//    
-//    if (![dict addSectionWithSettings:@[sendDataSetting,serverAddressSetting] withDescription:@"Send JSON  Transfer" error:&error]) {
-//        NSLog(@"%@",[error valueForKey:@"description"]);
-//        abort();
-//    }
-//    
-//    Setting *searchForRedSetting = [Setting settingWithName:@"searchForRed" description:@"Search White or Red" defaultValue:@NO type:SettingTypeBOOL block:^(id value) {
-//        self.manager.searchForRed = [value boolValue];
-//    }];
-//    
-//    if (![dict addSectionWithSettings:@[searchForRedSetting] withDescription:@"Image Analysis" error:&error]) {
-//        NSLog(@"%@",[error valueForKey:@"description"]);
-//        abort();
-//    }
-//    
-//    Setting *yawPitchSetting = [Setting settingWithName:@"displayYawAndPitch" description:@"Display Yaw and Pitch" defaultValue:@NO type:SettingTypeBOOL block:^(id value) {
-//        _displayYawAndPitch = [value boolValue];
-//        if ([value boolValue]) {
-//            self.yawLabel.text = @"Yaw:";
-//            self.pitchLabel.text = @"Pitch:";
-//            [UIView animateWithDuration:0.25 animations:^{
-//                self.yawLabel.alpha = 1.0;
-//                self.pitchLabel.alpha = 1.0;
-//            }];
-//        } else {
-//            [UIView animateWithDuration:0.25 animations:^{
-//                self.yawLabel.alpha = 0.0;
-//                self.pitchLabel.alpha = 0.0;
-//            }];
-//        }
-//    }];
-//    
-//    Setting *latLongSetting = [Setting settingWithName:@"displayLatAndLong" description:@"Display Approx. GPS Coordinates" defaultValue:@NO type:SettingTypeBOOL block:^(id value) {
-//        _displayLatAndLong = [value boolValue];
-//        if ([value boolValue]) {
-//            self.latitudeLabel.text = @"Latitude:";
-//            self.longitudeLabel.text = @"Longitude:";
-//            [UIView animateWithDuration:0.25 animations:^{
-//                self.latitudeLabel.alpha = 1.0;
-//                self.longitudeLabel.alpha = 1.0;
-//            }];
-//        } else {
-//            [UIView animateWithDuration:0.25 animations:^{
-//                self.latitudeLabel.alpha = 0.0;
-//                self.longitudeLabel.alpha = 0.0;
-//            }];
-//        }
-//    }];
-//    
-//    Setting *hideInfoSetting = [Setting settingWithName:@"hideInfoButton" description:@"Hide Info Button" defaultValue:@NO type:SettingTypeBOOL block:^(id value) {
-//        _hideInfoButton = [value boolValue];
-//        if (![value boolValue]) {
-//            self.infoButton.enabled = YES;
-//            [UIView animateWithDuration:0.25 animations:^{
-//                self.infoButton.alpha = 1.0;
-//            }];
-//        } else {
-//            self.infoButton.enabled = NO;
-//            [UIView animateWithDuration:0.25 animations:^{
-//                self.infoButton.alpha = 0.0;
-//            }];
-//        }
-//    }];
-//    
-//    if (![dict addSectionWithSettings:@[yawPitchSetting,latLongSetting,hideInfoSetting] withDescription:@"Display" error:&error]) {
-//        NSLog(@"%@",[error valueForKey:@"description"]);
-//        abort();
-//    }
-//    
-//    NSDictionary *settings = [NSDictionary dictionaryWithDictionary:dict];
-//    [self.settingsManager setupSettings:settings sender:self];
-}
-
 
 //static double _time = 0;
 
@@ -488,21 +329,10 @@
             }
         });
         if (self.mapIsVisible) {
-            CLLocationCoordinate2D c1,c2;
-            c1.latitude = data.latitude1;
-            c1.longitude = data.longitude1;
-            c2.latitude = data.latitude2;
-            c2.longitude = data.longitude2;
-            
-            float cameraYaw = data.yaw;
-            cameraYaw -= 30;
-            if (cameraYaw < 0) {
-                cameraYaw += 360;
-            }
-            
             dispatch_async(dispatch_get_main_queue(), ^{
+                CLLocationCoordinate2D c = CLLocationCoordinate2DMake(data.latitude1, data.longitude1);
                 
-                MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(c1, 100, 100);
+                MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(c, 100, 100);
                 
                 [self.mapView setRegion:region animated:YES];
             });
@@ -511,7 +341,6 @@
     
     [_manager startWithCallback:nil gpsBlock:mapBlock];
     [self resetLocatorBlock];
-//    [self.manager startWithCallback:locatorBlock gpsBlock:mapBlock];
 }
 
 -(void)resetLocatorBlock {
@@ -523,29 +352,18 @@
                     
                     if (_locatorLayer.opacity != 1.0) {
                         _locatorLayer.opacity = 1.0;
-                        CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-                        animation.toValue = @(1.0);
-                        animation.fromValue = @(0.0);
-                        animation.duration = 0.4;
-                        [_locatorLayer addAnimation:animation forKey:@"opacity"];
+                        [self animate:_locatorLayer path:@"opacity" to:@(1.0) from:@(0.0) duration:0.4];
                     }
                     
-                    //                    printf("%.2f\n",1.0 / (CACurrentMediaTime() - _time));
-                    
-                    CGPoint p = CGPointMake(imageBounds.origin.x + point.x * imageBounds.size.width, imageBounds.origin.y + point.y * imageBounds.size.height);
+                    CGPoint p = CGPointMake(imageBounds.origin.x + point.x * imageBounds.size.width,
+                                            imageBounds.origin.y + point.y * imageBounds.size.height);
                     
                     _locatorLayer.position = p;
-                    
-                    //                    _time = CACurrentMediaTime();
                     
                 } else {
                     if (_locatorLayer.opacity != 0.0) {
                         _locatorLayer.opacity = 0.0;
-                        CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-                        animation.toValue = @(0.0);
-                        animation.fromValue = @(1.0);
-                        animation.duration = 0.4;
-                        [_locatorLayer addAnimation:animation forKey:@"opacity"];
+                        [self animate:_locatorLayer path:@"opacity" to:@(0.0) from:@(1.0) duration:0.4];
                     }
                 }
             });
@@ -606,18 +424,13 @@
 -(void)pause {
     
     _manager.callback = nil;
+    
     [UIView animateWithDuration:0.5 animations:^{
         self.dimView.alpha = 0.1;
     }];
     
     _locatorLayer.opacity = 0.0;
-    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-    animation.toValue = @(0.0);
-    animation.fromValue = @(1.0);
-    animation.duration = 0.4;
-    [_locatorLayer addAnimation:animation forKey:@"opacity"];
-    
-    
+    [self animate:_locatorLayer path:@"opacity" to:@(0.0) from:@(1.0) duration:0.4];
     
     [_manager pauseWithBlock:^(UIImage *image) {
         UIColor *tint = [UIColor colorWithWhite:0.5 alpha:0.2];
@@ -656,6 +469,105 @@
     } else if ([notification.object isKindOfClass:[ViewController class]]) {
         [self unpause];
     }
+}
+
+-(void)animate:(CALayer *)layer path:(NSString *)path to:(id)to from:(id)from duration:(CFTimeInterval)duration {
+    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:path];
+    animation.toValue = to;
+    animation.fromValue = from;
+    animation.duration = duration;
+    [layer addAnimation:animation forKey:path];
+}
+
+#pragma mark - Settings
+
+-(void)setupSettings {
+    
+    //    if (!self.settingsManager) {
+    //        return;
+    //    }
+    //
+    //    NSMutableDictionary *dict = [NSMutableDictionary new];
+    //    NSError *error = nil;
+    //
+    //    Setting *sendDataSetting = [Setting settingWithName:@"sendData" description:@"Send Data To Server" defaultValue:@NO type:SettingTypeBOOL block:^(id value) {
+    //        self.manager.sendData = [value boolValue];
+    //    }];
+    //
+    //    Setting *serverAddressSetting = [Setting settingWithName:@"serverAddress" description:@"Server Address" defaultValue:@"" type:SettingTypeString block:^(id value) {
+    //        self.manager.serverAddress = value;
+    //    }];
+    //
+    //    if (![dict addSectionWithSettings:@[sendDataSetting,serverAddressSetting] withDescription:@"Send JSON  Transfer" error:&error]) {
+    //        NSLog(@"%@",[error valueForKey:@"description"]);
+    //        abort();
+    //    }
+    //
+    //    Setting *searchForRedSetting = [Setting settingWithName:@"searchForRed" description:@"Search White or Red" defaultValue:@NO type:SettingTypeBOOL block:^(id value) {
+    //        self.manager.searchForRed = [value boolValue];
+    //    }];
+    //
+    //    if (![dict addSectionWithSettings:@[searchForRedSetting] withDescription:@"Image Analysis" error:&error]) {
+    //        NSLog(@"%@",[error valueForKey:@"description"]);
+    //        abort();
+    //    }
+    //
+    //    Setting *yawPitchSetting = [Setting settingWithName:@"displayYawAndPitch" description:@"Display Yaw and Pitch" defaultValue:@NO type:SettingTypeBOOL block:^(id value) {
+    //        _displayYawAndPitch = [value boolValue];
+    //        if ([value boolValue]) {
+    //            self.yawLabel.text = @"Yaw:";
+    //            self.pitchLabel.text = @"Pitch:";
+    //            [UIView animateWithDuration:0.25 animations:^{
+    //                self.yawLabel.alpha = 1.0;
+    //                self.pitchLabel.alpha = 1.0;
+    //            }];
+    //        } else {
+    //            [UIView animateWithDuration:0.25 animations:^{
+    //                self.yawLabel.alpha = 0.0;
+    //                self.pitchLabel.alpha = 0.0;
+    //            }];
+    //        }
+    //    }];
+    //
+    //    Setting *latLongSetting = [Setting settingWithName:@"displayLatAndLong" description:@"Display Approx. GPS Coordinates" defaultValue:@NO type:SettingTypeBOOL block:^(id value) {
+    //        _displayLatAndLong = [value boolValue];
+    //        if ([value boolValue]) {
+    //            self.latitudeLabel.text = @"Latitude:";
+    //            self.longitudeLabel.text = @"Longitude:";
+    //            [UIView animateWithDuration:0.25 animations:^{
+    //                self.latitudeLabel.alpha = 1.0;
+    //                self.longitudeLabel.alpha = 1.0;
+    //            }];
+    //        } else {
+    //            [UIView animateWithDuration:0.25 animations:^{
+    //                self.latitudeLabel.alpha = 0.0;
+    //                self.longitudeLabel.alpha = 0.0;
+    //            }];
+    //        }
+    //    }];
+    //
+    //    Setting *hideInfoSetting = [Setting settingWithName:@"hideInfoButton" description:@"Hide Info Button" defaultValue:@NO type:SettingTypeBOOL block:^(id value) {
+    //        _hideInfoButton = [value boolValue];
+    //        if (![value boolValue]) {
+    //            self.infoButton.enabled = YES;
+    //            [UIView animateWithDuration:0.25 animations:^{
+    //                self.infoButton.alpha = 1.0;
+    //            }];
+    //        } else {
+    //            self.infoButton.enabled = NO;
+    //            [UIView animateWithDuration:0.25 animations:^{
+    //                self.infoButton.alpha = 0.0;
+    //            }];
+    //        }
+    //    }];
+    //
+    //    if (![dict addSectionWithSettings:@[yawPitchSetting,latLongSetting,hideInfoSetting] withDescription:@"Display" error:&error]) {
+    //        NSLog(@"%@",[error valueForKey:@"description"]);
+    //        abort();
+    //    }
+    //    
+    //    NSDictionary *settings = [NSDictionary dictionaryWithDictionary:dict];
+    //    [self.settingsManager setupSettings:settings sender:self];
 }
 
 @end

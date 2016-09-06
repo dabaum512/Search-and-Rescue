@@ -7,9 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		754EA6F31B01AA1C00EA6BAA /* FormatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 754EA6EE1B01AA1C00EA6BAA /* FormatViewController.m */; };
-		754EA6F41B01AA1C00EA6BAA /* VideoFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 754EA6F01B01AA1C00EA6BAA /* VideoFormat.m */; };
-		754EA6F51B01AA1C00EA6BAA /* DeviceHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 754EA6F21B01AA1C00EA6BAA /* DeviceHandler.m */; };
 		754EA6F81B01AA5F00EA6BAA /* UIImage+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 754EA6F71B01AA5F00EA6BAA /* UIImage+Category.m */; };
 		75A5B3201AF94D9D0096AAE7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 75A5B31F1AF94D9D0096AAE7 /* main.m */; };
 		75A5B3231AF94D9D0096AAE7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 75A5B3221AF94D9D0096AAE7 /* AppDelegate.m */; };
@@ -43,12 +40,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		754EA6ED1B01AA1C00EA6BAA /* FormatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FormatViewController.h; path = "../../video format/video format/FormatViewController.h"; sourceTree = "<group>"; };
-		754EA6EE1B01AA1C00EA6BAA /* FormatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FormatViewController.m; path = "../../video format/video format/FormatViewController.m"; sourceTree = "<group>"; };
-		754EA6EF1B01AA1C00EA6BAA /* VideoFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VideoFormat.h; path = "../../video format/video format/VideoFormat.h"; sourceTree = "<group>"; };
-		754EA6F01B01AA1C00EA6BAA /* VideoFormat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VideoFormat.m; path = "../../video format/video format/VideoFormat.m"; sourceTree = "<group>"; };
-		754EA6F11B01AA1C00EA6BAA /* DeviceHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DeviceHandler.h; path = "../../video format/video format/DeviceHandler.h"; sourceTree = "<group>"; };
-		754EA6F21B01AA1C00EA6BAA /* DeviceHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DeviceHandler.m; path = "../../video format/video format/DeviceHandler.m"; sourceTree = "<group>"; };
 		754EA6F61B01AA5F00EA6BAA /* UIImage+Category.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Category.h"; sourceTree = "<group>"; };
 		754EA6F71B01AA5F00EA6BAA /* UIImage+Category.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Category.m"; sourceTree = "<group>"; };
 		75A5B31A1AF94D9D0096AAE7 /* S&R.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "S&R.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -146,12 +137,6 @@
 				75A5B3221AF94D9D0096AAE7 /* AppDelegate.m */,
 				75A5B3241AF94D9D0096AAE7 /* ViewController.h */,
 				75A5B3251AF94D9D0096AAE7 /* ViewController.m */,
-				754EA6ED1B01AA1C00EA6BAA /* FormatViewController.h */,
-				754EA6EE1B01AA1C00EA6BAA /* FormatViewController.m */,
-				754EA6EF1B01AA1C00EA6BAA /* VideoFormat.h */,
-				754EA6F01B01AA1C00EA6BAA /* VideoFormat.m */,
-				754EA6F11B01AA1C00EA6BAA /* DeviceHandler.h */,
-				754EA6F21B01AA1C00EA6BAA /* DeviceHandler.m */,
 				75A5B3881AF97D990096AAE7 /* CameraView.h */,
 				75A5B3891AF97D990096AAE7 /* CameraView.m */,
 				75A5B3851AF96A5C0096AAE7 /* LocatorLayer.h */,
@@ -295,13 +280,10 @@
 				75A5B3671AF94E820096AAE7 /* NSObject+Properties.m in Sources */,
 				75A5B3261AF94D9D0096AAE7 /* ViewController.m in Sources */,
 				75A5B36A1AF94E820096AAE7 /* Quaternion.m in Sources */,
-				754EA6F31B01AA1C00EA6BAA /* FormatViewController.m in Sources */,
-				754EA6F41B01AA1C00EA6BAA /* VideoFormat.m in Sources */,
 				75A5B37D1AF94EA40096AAE7 /* SRManager.m in Sources */,
 				754EA6F81B01AA5F00EA6BAA /* UIImage+Category.m in Sources */,
 				75A5B38A1AF97D990096AAE7 /* CameraView.m in Sources */,
 				75A5B3231AF94D9D0096AAE7 /* AppDelegate.m in Sources */,
-				754EA6F51B01AA1C00EA6BAA /* DeviceHandler.m in Sources */,
 				75A5B3541AF94E6E0096AAE7 /* Elevation.m in Sources */,
 				75A5B36B1AF94E820096AAE7 /* Setting.m in Sources */,
 				75A5B36D1AF94E820096AAE7 /* SettingsViewController.m in Sources */,
