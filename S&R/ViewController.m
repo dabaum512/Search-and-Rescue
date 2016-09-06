@@ -13,9 +13,8 @@
 #import "SettingsViewController.h"
 #import "Setting.h"
 #import "LocatorLayer.h"
-#import "UIImage+ImageEffects.h"
 #import "CameraView.h"
-#import "UIImage+Category.h"
+#import "UIImage+Blur.h"
 
 #import "UploadView.h"
 

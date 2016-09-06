@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Justin Moser. All rights reserved.
 //
 
-#import "UIImage+Category.h"
+#import "UIImage+Blur.h"
 #import <Accelerate/Accelerate.h>
 
 @implementation UIImage(Category)
