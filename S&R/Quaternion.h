@@ -54,7 +54,7 @@
 -(Quaternion*)qMultiply:(Quaternion*)q;
 
 
--(Vector *)rotateVector:(Vector *)v;
+//-(Vector *)rotateVector:(Vector *)v;
 -(Vector *)rotatePoint:(Vector *)v;
 -(Vector *)rotateFrame:(Vector *)v;
 

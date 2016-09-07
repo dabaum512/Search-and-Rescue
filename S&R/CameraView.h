@@ -11,6 +11,6 @@
 
 @interface CameraView : UIView
 
-+(instancetype)cameraViewWithLayer:(AVCaptureVideoPreviewLayer *)layer;
+//+(instancetype)cameraViewWithLayer:(AVCaptureVideoPreviewLayer *)layer;
 
 @end

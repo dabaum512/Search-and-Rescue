@@ -11,7 +11,9 @@
 
 @interface DataHandler : NSObject
 
-+(void)sendFile:(NSString *)file toURL:(NSURL *)url;
++(void)sendFile:(NSString *)file toURL:(NSURL *)url completion:(void(^)(NSError *error))completion;
+
++(void)sendData:(NSData *)data toURL:(NSURL *)url completion:(void(^)(NSError *error))completion;
 
 +(BOOL)startNewRecording;
 

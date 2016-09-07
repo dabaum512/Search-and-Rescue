@@ -51,7 +51,7 @@ NSString *lastURLkey = @"lastURLkey";
         [send setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
         
         [send addEventHandler:^(id obj) {
-            [DataHandler sendFile:file toURL:[NSURL URLWithString:tf.text]];
+            [DataHandler sendFile:file toURL:[NSURL URLWithString:tf.text] completion:nil];
             [tf resignFirstResponder];
             callback();
         } forControlEvents:UIControlEventTouchUpInside];
@@ -156,6 +156,8 @@ static NSString *identifier = @"cellIdentifier";
 }
 
 @end
+
+
 
 @interface DataViewController ()
 @property (nonatomic, strong) NSDictionary *data;

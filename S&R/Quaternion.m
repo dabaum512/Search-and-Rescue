@@ -60,10 +60,10 @@
 }
 
 -(Quaternion*)multiply:(Quaternion*)q {
-    double newW = _w*q.w - _x*q.x - _y*q.y - _z*q.z;
-    double newX = _w*q.x + _x*q.w + _y*q.z - _z*q.y;
-    double newY = _w*q.y + _y*q.w + _z*q.x - _x*q.z;
-    double newZ = _w*q.z + _z*q.w + _x*q.y - _y*q.x;
+    double newW = _w * q.w - _x * q.x - _y * q.y - _z * q.z;
+    double newX = _w * q.x + _x * q.w + _y * q.z - _z * q.y;
+    double newY = _w * q.y + _y * q.w + _z * q.x - _x * q.z;
+    double newZ = _w * q.z + _z * q.w + _x * q.y - _y * q.x;
     _w = newW;
     _x = newX;
     _y = newY;
@@ -115,11 +115,6 @@
 
 -(Quaternion *)qInverse {
     Quaternion *q = [Quaternion new];
-//    double length_squared = [self norm];
-//    q.w =  _w / length_squared;
-//    q.x = -_x / length_squared;
-//    q.y = -_y / length_squared;
-//    q.z = -_z / length_squared;
     q.w =_w;
     q.x = -_x;
     q.y = -_y;
@@ -150,15 +145,15 @@
     return t;
 }
 
--(Vector *)rotateVector:(Vector *)v {
-    double x = (1-2*_y*_y-2*_z*_z)*v.x + 2*(_x*_y+_w*_z)*v.y + 2*(_x*_z-_w*_y)*v.z;
-    double y = 2*(_x*_y-_w*_z)*v.x + (1-2*_x*_x-2*_z*_z)*v.y + 2*(_y*_z-_w*_y)*v.z;
-    double z = 2*(_y*_z+_w*_y)*v.x + 2*(_y*_z-_w*_x)*v.y + (1-2*_x*_x-2*_y*_y)*v.z;
-    v.x = x;
-    v.y = y;
-    v.z = z;
-    return v;
-}
+//-(Vector *)rotateVector:(Vector *)v {
+//    double x = (1.0 - 2.0 * _y * _y - 2.0 * _z * _z) * v.x + 2.0 * (_x * _y + _w * _z) * v.y + 2.0 * (_x * _z - _w * _y) *v.z;
+//    double y = 2*(_x*_y-_w*_z)*v.x + (1-2*_x*_x-2*_z*_z)*v.y + 2*(_y*_z-_w*_y)*v.z;
+//    double z = 2*(_y*_z+_w*_y)*v.x + 2*(_y*_z-_w*_x)*v.y + (1-2*_x*_x-2*_y*_y)*v.z;
+//    v.x = x;
+//    v.y = y;
+//    v.z = z;
+//    return v;
+//}
 
 
 -(Quaternion *)qConjugate {
@@ -167,14 +162,10 @@
 
 -(Quaternion *)squared {
     Quaternion *q = [Quaternion copyQuaternion:self];
-    double w = _w*_w - _x*_x - _y*_y - _z*_z;
-    double x = 2*_w*_x;
-    double y = 2*_w*_y;
-    double z = 2*_w*_z;
-    q.w = w;
-    q.x = x;
-    q.y = y;
-    q.z = z;
+    q.w = _w * _w - _x * _x - _y * _y - _z * _z;;
+    q.x = 2.0 * _w * _x;
+    q.y = 2.0 * _w * _y;
+    q.z = 2.0 * _w * _z;
     return q;
 }
 
@@ -187,9 +178,8 @@
 }
 
 -(double)dotProduct:(Quaternion *)q {
-    
-    double q1q2 = _w*q.w + _x*q.x + _y*q.y + _z*q.z;
-    return q1q2/([self norm]*[q norm]);
+    double q1q2 = _w * q.w + _x * q.x + _y * q.y + _z * q.z;
+    return q1q2 / ([self norm] * [q norm]);
 }
 
 -(double)angleInbetween:(Quaternion *)q {
@@ -200,7 +190,7 @@
 #pragma mark - Euler
 
 -(double)yaw {
-    return asin(2*(_x*_z-_w*_y));
+    return asin(2.0 * (_x * _z - _w * _y));
 }
 
 -(double)smoothYaw {
@@ -248,10 +238,10 @@
     pitch /= 2;
     yaw /= 2;
     
-    w = cos(roll)*cos(pitch)*cos(yaw) - sin(roll)*cos(pitch)*sin(yaw);
-    x = cos(roll)*cos(yaw)*sin(pitch) + sin(roll)*sin(pitch)*sin(yaw);
-    y = cos(roll)*sin(pitch)*sin(yaw) - sin(roll)*cos(yaw)*sin(pitch);
-    z = cos(roll)*cos(pitch)*sin(yaw) + cos(pitch)*cos(yaw)*sin(roll);
+    w = cos(roll) * cos(pitch) * cos(yaw) - sin(roll) * cos(pitch) * sin(yaw);
+    x = cos(roll) * cos(yaw) * sin(pitch) + sin(roll) * sin(pitch) * sin(yaw);
+    y = cos(roll) * sin(pitch) * sin(yaw) - sin(roll) * cos(yaw) * sin(pitch);
+    z = cos(roll) * cos(pitch) * sin(yaw) + cos(pitch) * cos(yaw) * sin(roll);
     
     return [Quaternion quaternionWithValues:w x:x y:y z:z];
 }

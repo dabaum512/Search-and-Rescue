@@ -46,7 +46,6 @@
         NSLog(@"%@",error);
         return;
     }
-//    NSURL *myURL = [NSURL URLWithString:@"http://davidawehr.com/php_upload/json.php"];
     
     [self.JSONDictionary removeAllObjects];
     

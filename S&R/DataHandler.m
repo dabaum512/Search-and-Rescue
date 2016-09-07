@@ -26,58 +26,59 @@
     return handler;
 }
 
-+(void)sendFile:(NSString *)file toURL:(NSURL *)url {
++(void)sendFile:(NSString *)file toURL:(NSURL *)url completion:(void(^)(NSError *error))completion {
     NSString *path = [[self documents]stringByAppendingPathComponent:file];
     NSData *data = [[NSFileManager defaultManager]contentsAtPath:path];
-    
+    [self sendData:data toURL:url completion:completion];
+}
+
++(void)sendData:(NSData *)data toURL:(NSURL *)url completion:(void(^)(NSError *error))completion {
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     request.HTTPBody = data;
     request.HTTPMethod = @"POST";
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     
     [[[NSURLSession sharedSession]dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (error) {
-            [self showError:error];
-        } else {
-            NSLog(@"%@",response);
+        if (completion) {
+            completion(error);
         }
     }]resume];
 }
 
-+(void)showError:(NSError *)error {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        
-        static UIWindow *window = nil;
-        
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error" message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
-        
-        window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
-        
-        UIViewController *c = [UIViewController new];
-        window.rootViewController = c;
-        
-        window.windowLevel = 2000;
-        window.alpha = 0.0;
-        
-        [window makeKeyAndVisible];
-        
-        [c presentViewController:alert animated:NO completion:^{
-            [UIView animateWithDuration:0.25 animations:^{
-                window.alpha = 1.0;
-            } completion:^(BOOL finished) {
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    [UIView animateWithDuration:0.25 animations:^{
-                        window.alpha = 0.0;
-                    } completion:^(BOOL finished) {
-                        [window setHidden:YES];
-                        window.rootViewController = nil;
-                        window = nil;
-                    }];
-                });
-            }];
-        }];
-    });
-}
+//+(void)showError:(NSError *)error {
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        
+//        static UIWindow *window = nil;
+//        
+//        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error" message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
+//        
+//        window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
+//        
+//        UIViewController *c = [UIViewController new];
+//        window.rootViewController = c;
+//        
+//        window.windowLevel = 2000;
+//        window.alpha = 0.0;
+//        
+//        [window makeKeyAndVisible];
+//        
+//        [c presentViewController:alert animated:NO completion:^{
+//            [UIView animateWithDuration:0.25 animations:^{
+//                window.alpha = 1.0;
+//            } completion:^(BOOL finished) {
+//                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//                    [UIView animateWithDuration:0.25 animations:^{
+//                        window.alpha = 0.0;
+//                    } completion:^(BOOL finished) {
+//                        [window setHidden:YES];
+//                        window.rootViewController = nil;
+//                        window = nil;
+//                    }];
+//                });
+//            }];
+//        }];
+//    });
+//}
 
 +(BOOL)handleData:(PostData)postData {
     DataHandler *handler = [DataHandler sharedHandler];
